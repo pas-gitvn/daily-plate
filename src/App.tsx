@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import 'bulma/css/bulma.min.css';
 import './App.css';
 import Grid from './components/Grid';
@@ -46,6 +46,25 @@ const App = () => {
 
     quote of the day can be used with https://zenquotes.io/api/today from https://zenquotes.io/
   `;
+  const [quoteOfTheDay, setQuoteOfTheDay] = useState<string>();
+
+  useEffect(()=> {
+    const url = 'https://zenquotes.io/api/today';
+    const getQuoteOfTheDay = async () => {
+      const response = await fetch(url, {
+        mode:  'cors',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      var data = await response.json();
+      setQuoteOfTheDay(data);
+      console.log(data);
+    }    
+
+    //getQuoteOfTheDay(); // cors errors
+  }, []);
 
   return (
     <div className="plate">

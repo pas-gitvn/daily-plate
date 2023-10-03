@@ -2,17 +2,3 @@
   min-height: 90vh;
   margin: -48px 0 0; 
 }
-
-/* .grid__column {
-  position: relative;
-} */
-
-/* .grid button {
-  position: absolute;
-  bottom: 24px;
-  transform: translateX(-50%);
-} */
-
-.grid button {
-  margin-bottom: 16px;
-}
