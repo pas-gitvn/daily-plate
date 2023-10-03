@@ -1,0 +1,15 @@
+.grid__column-waiting {
+  background: #C4DCF2;
+}
+
+.grid__column-doing {
+  background: #F1F5C1;
+}
+
+.grid__column-testing {
+  background: #F5ADA9;
+}
+
+.grid__column-done {
+  background: #B37D7A;
+}
