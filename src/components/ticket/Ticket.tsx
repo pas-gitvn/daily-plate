@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Ticket.css';
+import styles from './Ticket.module.css';
 
 type Props = {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void, 
@@ -19,13 +19,13 @@ const Ticket = (props: Props) => {
 
   return (
     <div 
-      className="box ticket" 
+      className={`box ${styles.ticket}`} 
       draggable={true} 
       onDragStart={props.onDragStart}
     >
       <span>Ticket {props.id}</span>
       <p>{props.text}</p>
-      <span className='button is-light toggle-content' onClick={handleOnClick}>{detailsIcon}</span>
+      <span className={`button is-light ${styles['toggle-content']}`} onClick={handleOnClick}>{detailsIcon}</span>
       {detailsStatus && <div className="ticket-details">
         <div>
           details

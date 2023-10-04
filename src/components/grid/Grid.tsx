@@ -1,6 +1,6 @@
 import React from 'react';
 import GridColumn from './GridColumn';
-import './Grid.css';
+import styles from './Grid.module.css'
 
 const Grid = () => {
   let dragged:HTMLElement | object;
@@ -11,6 +11,7 @@ const Grid = () => {
     { id: 3, class: 'testing', name: 'Testing'},
     { id: 4, class: 'done', name: 'Done'},    
   ];
+
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {    
     dragged = e.target;
@@ -35,6 +36,8 @@ const Grid = () => {
       shouldBeInsertedBefore = true;
     }
 
+    console.log(target);
+
     // aka insert after
     // parentDiv.insertBefore(sp1, sp2.nextSibling);
     // sp1 - dragged
@@ -49,7 +52,7 @@ const Grid = () => {
   };
 
   return (
-    <div className="grid columns section">       
+    <div className={`${styles.grid} columns section`}>       
       {columns.map((column) => (
         <GridColumn key={column.id} id={column.id} onDragOver={onDragOver} onDrop={onDrop} onDragStart={onDragStart} class={column.class} name={column.name}/>  
       ))}                

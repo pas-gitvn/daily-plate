@@ -1,7 +1,6 @@
 import React from 'react';
-import Ticket from './Ticket';
-import './GridColumn.css';
-import { isPropertySignature } from 'typescript';
+import Ticket from '../ticket/Ticket';
+import styles from './GridColumn.module.css';
 
 interface AProps {
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -26,13 +25,13 @@ const GridColumn = (props:AProps) => {
 
   return (
     <div 
-        className={`column grid__column grid__column-${props.class}`}
+        className={`column grid__column ${styles[`grid__column-${props.class}`]}`}
         onDragOver={props.onDragOver}
         onDrop={props.onDrop}
       >
         <h3 className="title is-3 mt-4">{props.name}</h3>        
         {filteredTickets.map((ticket) => (
-          <Ticket id={ticket.id} onDragStart={props.onDragStart} text={ticket.title} />
+          <Ticket key={ticket.id} id={ticket.id} onDragStart={props.onDragStart} text={ticket.title} />
         ))}          
     </div> 
   )

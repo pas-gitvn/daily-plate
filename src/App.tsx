@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import 'bulma/css/bulma.min.css';
 import './App.css';
-import Grid from './components/Grid';
+import Grid from './components/grid/Grid';
+import Modal from './components/modal/Modal';
 
 
 const App = () => {
@@ -46,34 +47,36 @@ const App = () => {
 
     quote of the day can be used with https://zenquotes.io/api/today from https://zenquotes.io/
   `;
-  const [quoteOfTheDay, setQuoteOfTheDay] = useState<string>();
+  
+  //const [quoteOfTheDay, setQuoteOfTheDay] = useState<string>();
 
-  useEffect(()=> {
-    const url = 'https://zenquotes.io/api/today';
-    const getQuoteOfTheDay = async () => {
-      const response = await fetch(url, {
-        mode:  'cors',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      var data = await response.json();
-      setQuoteOfTheDay(data);
-      console.log(data);
-    }    
+  // useEffect(()=> {
+  //   const url = 'https://zenquotes.io/api/today';
+  //   const getQuoteOfTheDay = async () => {
+  //     const response = await fetch(url, {
+  //       mode:  'cors',
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //     });
+  //     var data = await response.json();
+  //     setQuoteOfTheDay(data);
+  //     console.log(data);
+  //   }    
 
-    //getQuoteOfTheDay(); // cors errors
-  }, []);
+  //   //getQuoteOfTheDay(); // cors errors
+  // }, []);
 
   return (
     <div className="plate">
       <section className="plate__header section">
         <h1 className="title is-1">My daily plate</h1>
         <p className="subtitle">this is your plate app for your daily tasks</p>
-        <button className="button is-primary">Create a new ticket</button>      
+        <button className="button is-primary">Create a new ticket</button>         
       </section>          
       <Grid />      
+      <Modal />
       <pre children={todoMap} />
     </div>
   );
