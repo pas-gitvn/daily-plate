@@ -68,15 +68,30 @@ const App = () => {
   //   //getQuoteOfTheDay(); // cors errors
   // }, []);
 
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const modalOpenHandler = () => {
+    setIsModalVisible(true);
+  };
+
+  const modalCloseHandler = () => {
+    setIsModalVisible(false);
+  }
+
+  const modalCloseAndSaveHandler = () => {
+    // save logic
+    setIsModalVisible(false);
+  }
+
   return (
     <div className="plate">
       <section className="plate__header section">
-        <h1 className="title is-1">My daily plate</h1>
-        <p className="subtitle">this is your plate app for your daily tasks</p>
-        <button className="button is-primary">Create a new ticket</button>         
+        <h1 className="title is-1">The daily plate</h1>
+        <p className="subtitle">Hey, this is your plate for your daily tasks. Organize your work and have fun.</p>
+        <button className="button is-primary" onClick={modalOpenHandler}>Create a new ticket</button>         
       </section>          
       <Grid />      
-      <Modal />
+      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalCloseAndSaveHandler}/>
       <pre children={todoMap} />
     </div>
   );
