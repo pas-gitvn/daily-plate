@@ -9,17 +9,16 @@ interface AProps {
   class: string;
   name: string;
   id: number,
+  tickets: {
+    id: number,
+    columnId: number,
+    title: string,
+  }[]
 }
 
-const tickets = [
-  { id: 1, columnId: 1, title: 'I\'m in a box. I am a ticket.'},
-  { id: 2, columnId: 1, title: 'I\'m in a box. I am a ticket.'},
-  { id: 3, columnId: 2, title: 'I\'m in a box. I am a ticket.'},
-  { id: 4, columnId: 3, title: 'I\'m in a box. I am a ticket.'},
-  { id: 5, columnId: 4, title: 'I\'m in a box. I am a ticket.'}
-];
-
 const GridColumn = (props:AProps) => {
+
+  const tickets = props.tickets;
 
   const filteredTickets = tickets.filter((ticket) => ticket.columnId === props.id);
 

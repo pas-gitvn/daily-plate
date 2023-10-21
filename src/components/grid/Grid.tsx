@@ -2,7 +2,15 @@ import React from 'react';
 import GridColumn from './GridColumn';
 import styles from './Grid.module.css'
 
-const Grid = () => {
+interface Aprops {
+  tickets: {
+    id: number,
+    columnId: number,
+    title: string,
+  }[]
+}
+
+const Grid = (props: Aprops) => {
   let dragged:HTMLElement | object;
 
   const columns: { id: number, class: string, name: string }[] = [
@@ -54,7 +62,7 @@ const Grid = () => {
   return (
     <div className={`${styles.grid} columns section`}>       
       {columns.map((column) => (
-        <GridColumn key={column.id} id={column.id} onDragOver={onDragOver} onDrop={onDrop} onDragStart={onDragStart} class={column.class} name={column.name}/>  
+        <GridColumn key={column.id} id={column.id} onDragOver={onDragOver} onDrop={onDrop} onDragStart={onDragStart} class={column.class} name={column.name} tickets={props.tickets}/>  
       ))}                
     </div>
   );
