@@ -8,6 +8,10 @@ interface Aprops {
 
 const Modal = (props:Aprops) => {
   const isVisible = props.isVisible;
+  // modal content
+  // simple as that
+  // ticket title
+  // ticket description
 
   return (
     <div id="modal" className={`modal ${isVisible ? 'is-active' : ''}`}>

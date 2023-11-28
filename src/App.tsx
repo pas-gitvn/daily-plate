@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import 'bulma/css/bulma.min.css';
 import './App.css';
 import Grid from './components/grid/Grid';
@@ -17,12 +17,11 @@ const App = () => {
     *can also be named as daily, daily plate or something similar
 
     features/assumptions:
-    - columns with drag drop / grid
+    - (done) columns with drag drop / grid
     - creating cards, which can be moved
     - styling for cards
     - adding pomodoro timer    
     - displaying timers
-    - worldtime clocks    
     - adding moods, happy, sleepy etc.
     - saving to local storage
     - sharing tasks in the future

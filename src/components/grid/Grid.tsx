@@ -11,7 +11,7 @@ interface Aprops {
 }
 
 const Grid = (props: Aprops) => {
-  let dragged:HTMLElement | object;
+  let draggedTicket:HTMLElement | object;
 
   const columns: { id: number, class: string, name: string }[] = [
     { id: 1, class: 'waiting', name: 'Waiting'},
@@ -22,7 +22,7 @@ const Grid = (props: Aprops) => {
 
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {    
-    dragged = e.target;
+    draggedTicket = e.target;
   };
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -32,31 +32,22 @@ const Grid = (props: Aprops) => {
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
-    let shouldBeInsertedBefore = false;
-    let childElement = null;
+    let target = e.target as HTMLElement;
+    let column = target.closest('.column') as HTMLElement;
 
-    let target = e.target as Element;
-    if(target.parentElement?.classList.contains('column')) {
-      childElement = target;
-      target = target.parentElement;
-      // think about offset on drag
-      // add some opacity on a child
-      shouldBeInsertedBefore = true;
-    }
+    let ticketBoxes = Array.from(column.children).filter((el) => {
+      return el.classList.contains('box');
+    }) as HTMLElement[];
+    
+    let ticketToBeLower = ticketBoxes.find((element) => {
+      return (element.offsetTop + element.offsetHeight * 0.35) > e.pageY;
+    });
 
-    console.log(target);
-
-    // aka insert after
-    // parentDiv.insertBefore(sp1, sp2.nextSibling);
-    // sp1 - dragged
-    // sp2 - childElement.nextSibling / if it exists / if not do appendChild as it is the last element
-
-    if(shouldBeInsertedBefore && !childElement?.classList.contains('title')) {
-      // if on title, go first
-      if(dragged instanceof HTMLElement) target.insertBefore(dragged, childElement);
-    } else {
-      if(dragged instanceof HTMLElement) target.appendChild(dragged);
-    }    
+    if(draggedTicket instanceof HTMLElement && ticketToBeLower) { 
+      column.insertBefore(draggedTicket, ticketToBeLower) 
+    } else if(draggedTicket instanceof HTMLElement) {
+      column.appendChild(draggedTicket);
+    } 
   };
 
   return (
