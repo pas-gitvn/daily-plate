@@ -28,13 +28,16 @@ const Grid = (props: Aprops) => {
     draggedTicket.classList.add('dragging');
   };
 
+  const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    draggedTicket.classList.remove('dragging');
+  }
+
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    draggedTicket.classList.remove('dragging');
 
     let target = e.target as HTMLElement;
     let column = target.closest('.column') as HTMLElement;
@@ -73,6 +76,7 @@ const Grid = (props: Aprops) => {
           onDragOver={onDragOver} 
           onDrop={onDrop} 
           onDragStart={onDragStart} 
+          onDragEnd={onDragEnd}
           class={column.class} 
           name={column.name} 
           tickets={props.tickets}

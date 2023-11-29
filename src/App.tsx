@@ -70,7 +70,7 @@ const App = () => {
     setIsModalVisible(false);
   }
 
-  const modalCloseAndSaveHandler = () => {
+  const modalSaveAndCloseHandler = () => {
     // save logic
     setIsModalVisible(false);
   }
@@ -83,7 +83,7 @@ const App = () => {
         <button className="button is-primary" onClick={modalOpenHandler}>Create a new ticket</button>         
       </section>          
       <Grid tickets={tickets}/>      
-      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalCloseAndSaveHandler}/>
+      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler}/>
       <pre children={todoMap} />
     </div>
   );

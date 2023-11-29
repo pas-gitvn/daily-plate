@@ -6,6 +6,7 @@ interface AProps {
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
   class: string;
   name: string;
   id: number,
@@ -28,9 +29,9 @@ const GridColumn = (props:AProps) => {
         onDragOver={props.onDragOver}
         onDrop={props.onDrop}
       >
-        <h3 className="title is-3 mt-4">{props.name}</h3>        
+        <h3 className="title is-3 mt-4 has-text-centered">{props.name}</h3>        
         {filteredTickets.map((ticket) => (
-          <Ticket key={ticket.id} id={ticket.id} onDragStart={props.onDragStart} text={ticket.title} />
+          <Ticket key={ticket.id} id={ticket.id} onDragStart={props.onDragStart} onDragEnd={props.onDragEnd} text={ticket.title} />
         ))}          
     </div> 
   )

@@ -3,6 +3,18 @@
   padding-bottom: 48px;
 }
 
+.edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #646464;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    color: #000;
+  }
+}
+
 .toggle-content {
   position: absolute;
   right: 0;
