@@ -11,7 +11,8 @@ interface Aprops {
 }
 
 const Grid = (props: Aprops) => {
-  let draggedTicket:HTMLElement | object;
+  let draggedTicket:HTMLElement;
+  let draggedStartPosition:number;
 
   const columns: { id: number, class: string, name: string }[] = [
     { id: 1, class: 'waiting', name: 'Waiting'},
@@ -22,7 +23,9 @@ const Grid = (props: Aprops) => {
 
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {    
-    draggedTicket = e.target;
+    draggedTicket = e.target as HTMLElement;
+    draggedStartPosition = e.pageY;
+    draggedTicket.classList.add('dragging');
   };
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -31,6 +34,7 @@ const Grid = (props: Aprops) => {
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    draggedTicket.classList.remove('dragging');
 
     let target = e.target as HTMLElement;
     let column = target.closest('.column') as HTMLElement;
@@ -38,9 +42,19 @@ const Grid = (props: Aprops) => {
     let ticketBoxes = Array.from(column.children).filter((el) => {
       return el.classList.contains('box');
     }) as HTMLElement[];
+
+    // distance from top to a cursor position of the dragged ticket
+    // e.g. ticket's top position is 100 and cursor position is 120
+    // then the distance is 20
+    let draggedTopDistance = draggedStartPosition - draggedTicket.offsetTop;
     
+    // if a dropped ticket's position is in the top 35% of the target ticket area
+    // then target ticket will be set to lower position
+    // e.g. a ticket below dropped one have a position of 100 and height of 100,
+    // so the calculated factor is going to be 135
+    // if a dragged element calculated postion will be less than 135, then that dragged ticket will be placed before
     let ticketToBeLower = ticketBoxes.find((element) => {
-      return (element.offsetTop + element.offsetHeight * 0.35) > e.pageY;
+      return (element.offsetTop + element.offsetHeight * 0.35) > e.pageY - draggedTopDistance;
     });
 
     if(draggedTicket instanceof HTMLElement && ticketToBeLower) { 
@@ -53,7 +67,16 @@ const Grid = (props: Aprops) => {
   return (
     <div className={`${styles.grid} columns section`}>       
       {columns.map((column) => (
-        <GridColumn key={column.id} id={column.id} onDragOver={onDragOver} onDrop={onDrop} onDragStart={onDragStart} class={column.class} name={column.name} tickets={props.tickets}/>  
+        <GridColumn 
+          key={column.id} 
+          id={column.id} 
+          onDragOver={onDragOver} 
+          onDrop={onDrop} 
+          onDragStart={onDragStart} 
+          class={column.class} 
+          name={column.name} 
+          tickets={props.tickets}
+        />  
       ))}                
     </div>
   );
