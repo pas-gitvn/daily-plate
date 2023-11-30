@@ -9,9 +9,9 @@ type Props = {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void, 
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void, 
 
-  title: string,
+  title: string | undefined,
   id: number,
-  content: string,
+  content: string | undefined,
 }
 
 const Ticket = (props: Props) => {  

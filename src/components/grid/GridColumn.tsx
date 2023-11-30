@@ -15,8 +15,8 @@ interface AProps {
   tickets: {
     id: number,
     columnId: number,
-    title: string,
-    content: string,
+    title: string | undefined,
+    content: string | undefined,
   }[]
 }
 

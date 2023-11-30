@@ -6,8 +6,8 @@ interface Aprops {
   tickets: {
     id: number,
     columnId: number,
-    title: string,
-    content: string,
+    title: string | undefined,
+    content: string | undefined,
   }[]
 }
 
@@ -32,6 +32,10 @@ const Grid = (props: Aprops) => {
 
   const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     draggedTicket.classList.remove('dragging');
+    let columns = document.querySelectorAll('.column');
+    columns.forEach((column) => {
+      column.classList.remove('over');
+    })
   }
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -57,8 +61,6 @@ const Grid = (props: Aprops) => {
     e.preventDefault();
     let target = e.target as HTMLElement;
     let column = target.closest('.column') as HTMLElement;
-    column.classList.remove('over');
-
 
     let ticketBoxes = Array.from(column.children).filter((el) => {
       return el.classList.contains('box');

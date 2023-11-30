@@ -7,8 +7,8 @@ import Modal from './components/modal/Modal';
 type Tickets = {
   id: number;
   columnId: number;
-  title: string;
-  content: string;
+  title: string | undefined;
+  content: string | undefined;
 }[]
 
 const App = () => {
@@ -30,9 +30,16 @@ const App = () => {
     setIsModalVisible(false);
   }
 
-  const modalSaveAndCloseHandler = () => {
-    // save logic
+  const modalSaveAndCloseHandler = (title:string | undefined, content:string | undefined) => {
     setIsModalVisible(false);
+    const nextId = tickets.length + 1;
+    setTickets(prev => [...prev, {
+      id: nextId,
+      columnId: 1,
+      title: title,
+      content: content,
+    }]);
+
   }
 
   return (

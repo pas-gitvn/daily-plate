@@ -1,9 +1,10 @@
+import { useRef } from 'react';
 import styles from './Modal.module.css';
 
 interface Aprops {
   isVisible: boolean;
   close: () => void;
-  save: () => void;
+  save: (title:string | undefined, content:string | undefined) => void;
 }
 
 const Modal = (props:Aprops) => {
@@ -12,6 +13,12 @@ const Modal = (props:Aprops) => {
   // simple as that
   // ticket title
   // ticket description
+  const titleRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSave = () => {
+    props.save(titleRef.current?.value, contentRef.current?.value);
+  };
 
   return (
     <div id="modal" className={`modal ${isVisible ? 'is-active' : ''}`}>
@@ -25,18 +32,18 @@ const Modal = (props:Aprops) => {
           <div className="field">
             <label className="label">Title</label>
             <div className="control">
-              <input className="input" type="text" placeholder="Ticket title"/>
+              <input className="input" ref={titleRef} type="text" placeholder="Ticket title"/>
             </div>
           </div>
           <div className="field">
             <label className="label">Content</label>
             <div className="control">
-              <textarea className="textarea" placeholder="Ticket content"></textarea>
+              <textarea className="textarea" ref={contentRef} placeholder="Ticket content"></textarea>
             </div>
           </div>
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-primary" onClick={props.save}>Create</button>
+          <button className="button is-primary" onClick={handleSave}>Create</button>
           <button className="button" onClick={props.close}>Cancel</button>
         </footer>
       </div>   
