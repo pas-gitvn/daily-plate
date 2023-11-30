@@ -9,8 +9,9 @@ type Props = {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void, 
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void, 
 
-  text: string,
+  title: string,
   id: number,
+  content: string,
 }
 
 const Ticket = (props: Props) => {  
@@ -38,12 +39,13 @@ const Ticket = (props: Props) => {
       <span className={`icon ${styles.edit}`} onClick={handleEdit}>
         <FontAwesomeIcon icon={faEdit} />
       </span>
-      <p className={'is-size-5 mb-2'}>Ticket {props.id}</p>
-      <p>{props.text}</p>
+      <span>Ticket {props.id}</span>
+      <p className='is-size-5'> {props.title}</p>
+      
       <span className={`button is-light ${styles['toggle-content']}`} onClick={handleOnClick}>{detailsIcon}</span>
       {detailsStatus && <div className="ticket-details">
-        <div>
-          details
+        <div className='mt-2'>
+          {props.content}
         </div>
       </div>}
     </div>

@@ -7,12 +7,14 @@ interface Aprops {
     id: number,
     columnId: number,
     title: string,
+    content: string,
   }[]
 }
 
 const Grid = (props: Aprops) => {
   let draggedTicket:HTMLElement;
   let draggedStartPosition:number;
+  let columnTarget:HTMLElement;
 
   const columns: { id: number, class: string, name: string }[] = [
     { id: 1, class: 'waiting', name: 'Waiting'},
@@ -36,11 +38,27 @@ const Grid = (props: Aprops) => {
     e.preventDefault();
   };
 
-  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-
     let target = e.target as HTMLElement;
     let column = target.closest('.column') as HTMLElement;
+    columnTarget = column;
+    column.classList.add('over');
+  };
+
+  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    let target = e.target as HTMLElement;
+    let column = target.closest('.column') as HTMLElement;
+    if (column != columnTarget) column.classList.remove('over');
+  }
+
+  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    let target = e.target as HTMLElement;
+    let column = target.closest('.column') as HTMLElement;
+    column.classList.remove('over');
+
 
     let ticketBoxes = Array.from(column.children).filter((el) => {
       return el.classList.contains('box');
@@ -77,6 +95,8 @@ const Grid = (props: Aprops) => {
           onDrop={onDrop} 
           onDragStart={onDragStart} 
           onDragEnd={onDragEnd}
+          onDragEnter={onDragEnter}
+          onDragLeave={onDragLeave}
           class={column.class} 
           name={column.name} 
           tickets={props.tickets}

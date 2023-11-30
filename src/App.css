@@ -1,3 +1,7 @@
+.box {
+  transition: all 0.3s;
+}
+
 .box.dragging,
 .box.dragging .button {
   background: rgba(255, 255, 255, 0.3);
@@ -6,4 +10,17 @@
 .box.dragging {
   transform: scale(0.75);
   transition: 0.5s;
+}
+
+.grid__column.over {
+  filter: brightness(85%);
+}
+
+.footer {
+  padding: 1.5rem 1.5rem;
+}
+@media screen and (min-width: 1024px) {
+  .footer {
+    padding: 1.5rem 3rem;
+  }
 }
