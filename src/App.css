@@ -8,6 +8,11 @@
   transition: 0.5s;
 }
 
+.grid__column {
+  max-width: 25%;
+  word-break: break-word;
+}
+
 .grid__column.over {
   filter: brightness(85%);
   transition: 0.3s;
@@ -16,6 +21,7 @@
 .footer {
   padding: 1.5rem 1.5rem;
 }
+
 @media screen and (min-width: 1024px) {
   .footer {
     padding: 1.5rem 3rem;
