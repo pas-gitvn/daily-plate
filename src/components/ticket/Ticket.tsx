@@ -6,7 +6,7 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import styles from './Ticket.module.css';
 
 type Props = {
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void, 
+  onDragStart: (ticketId:number) => (e: React.DragEvent<HTMLDivElement>) => void, 
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void, 
 
   title: string | undefined,
@@ -33,7 +33,7 @@ const Ticket = (props: Props) => {
     <div 
       className={`box ${styles.ticket}`} 
       draggable={true} 
-      onDragStart={props.onDragStart}
+      onDragStart={props.onDragStart(props.id)}
       onDragEnd={props.onDragEnd}
     >
       <span className={`icon ${styles.edit}`} onClick={handleEdit}>
