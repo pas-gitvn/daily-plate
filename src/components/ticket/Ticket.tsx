@@ -8,6 +8,7 @@ import styles from './Ticket.module.css';
 type Props = {
   onDragStart: (ticketId:number) => (e: React.DragEvent<HTMLDivElement>) => void, 
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void, 
+  onEdit: (ticketId:number) => void;
 
   title: string | undefined,
   id: number,
@@ -24,9 +25,8 @@ const Ticket = (props: Props) => {
     detailsIcon === '+' ? setDetailsIcon('-') : setDetailsIcon('+');    
   }
 
-  const handleEdit = () => {
-    // edit, send fn from props
-    console.log('edit');
+  const handleEdit = () => {    
+    props.onEdit(props.id);    
   }
 
   return (

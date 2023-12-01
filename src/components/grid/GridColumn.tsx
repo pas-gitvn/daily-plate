@@ -9,6 +9,7 @@ interface AProps {
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
+  onEditTicket: (ticketId:number) => void;
   class: string;
   name: string;
   id: number,
@@ -36,7 +37,7 @@ const GridColumn = (props:AProps) => {
       >
         <h3 className="title is-3 mt-4 has-text-centered is-unselectable">{props.name}</h3>        
         {filteredTickets.map((ticket) => (
-          <Ticket key={ticket.id} id={ticket.id} onDragStart={props.onDragStart} onDragEnd={props.onDragEnd} title={ticket.title} content={ticket.content} />
+          <Ticket key={ticket.id} id={ticket.id} onEdit={props.onEditTicket} onDragStart={props.onDragStart} onDragEnd={props.onDragEnd} title={ticket.title} content={ticket.content} />
         ))}          
     </div> 
   )

@@ -10,6 +10,7 @@ interface Aprops {
     content: string | undefined,
   }[],
   updateColumns: (ticketId: number, columnId: number) => void,
+  onEditTicket: (ticketId: number) => void,
 }
 
 const Grid = (props: Aprops) => {
@@ -35,8 +36,7 @@ const Grid = (props: Aprops) => {
     };
   };
 
-  const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log(draggedTicket);
+  const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {    
     draggedTicket.classList.remove('dragging');
     let columns = document.querySelectorAll('.column');
     columns.forEach((column) => {
@@ -93,6 +93,7 @@ const Grid = (props: Aprops) => {
   
       if(draggedTicket instanceof HTMLElement && ticketToBeLower) { 
         //column.insertBefore(draggedTicket, ticketToBeLower)  // breaks rendering as column id is now updated
+        console.log(draggedTicket, ticketToBeLower);
       } else if(draggedTicket instanceof HTMLElement) {
         //column.appendChild(draggedTicket); // breaks rendering
       }           
@@ -111,6 +112,7 @@ const Grid = (props: Aprops) => {
           onDragEnd={onDragEnd}
           onDragEnter={onDragEnter}
           onDragLeave={onDragLeave}
+          onEditTicket={props.onEditTicket}
           class={column.class} 
           name={column.name} 
           tickets={props.tickets}
