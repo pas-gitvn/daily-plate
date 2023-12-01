@@ -5,7 +5,8 @@ interface Aprops {
   isVisible: boolean;
   isEditing: boolean;
   close: () => void;
-  save: (title:string | undefined, content:string | undefined) => void;  
+  save: (title:string | undefined, content:string | undefined) => void;
+  onDelete: () => void;
 }
 
 const Modal = (props:Aprops) => {
@@ -18,7 +19,7 @@ const Modal = (props:Aprops) => {
   };
 
   const handleDelete = () => {
-
+    props.onDelete();
   };
 
   return (

@@ -9,8 +9,8 @@ plate app
     - (done) creating tickets and saving to local storage
     - (done) loading tickets from local storage
     - (done) update tickets column id while dropping
-    - editing and saving tickets to local storage
-    - removing tickets and saving to local storage  
+    - (done) editing and saving tickets to local storage
+    - (done) removing tickets and saving to local storage  
     - add tickets positioning in a column (so tickets can have different order)
     - adding touch events
     - displaying local time

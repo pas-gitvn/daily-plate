@@ -75,6 +75,15 @@ const App = () => {
     setEditingTicketId(ticketId);    
   }; 
 
+  const onDeleteTicket = () => {
+    setIsEditingTicket(false);    
+    setIsModalVisible(false);
+    const updatedTickets = tickets.filter((ticket) => {      
+      return ticket.id !== editingTicketId;
+    });
+    setTickets(updatedTickets);
+  }
+
   useEffect(() => {    
     let value = null;     
     value = localStorage.getItem('plateTickets');      
@@ -101,8 +110,8 @@ const App = () => {
         <button className="button is-primary" onClick={modalOpenHandler}>Create a new ticket</button>         
       </section>          
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
-      <footer className='footer'>Created in 2023, visit the author page <a href="#">here</a></footer>
-      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler} isEditing={isEditingTicket}/>
+      <footer className='footer'>Created in 2023, mail the author <a href="mailto=szupa@o2.pl">here</a></footer>
+      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
     </div>
   );
 }
