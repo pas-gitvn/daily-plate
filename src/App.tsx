@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import 'bulma/css/bulma.min.css';
 import './App.css';
 import Grid from './components/grid/Grid';
 import Modal from './components/modal/Modal';
+import InfoModal from './components/modal/InfoModal';
+import GDPRConsent from './components/policies/GDPRConsent';
 
 type Tickets = {
   id: number;
@@ -11,12 +15,22 @@ type Tickets = {
   content: string | undefined;
 }[]
 
+interface Quote {
+  q: string;
+  a: string;
+}
+
 const App = () => {
+  const { t } = useTranslation();
+
   const [tickets, setTickets] = useState<Tickets>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isEditingTicket, setIsEditingTicket] = useState<boolean>(false);
   const [editingTicketId, setEditingTicketId] = useState<number>();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
+  const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);
+  const [quote, setQuote] = useState<Quote | null>(null);
 
   const modalOpenHandler = () => {
     setIsEditingTicket(false);
@@ -25,6 +39,14 @@ const App = () => {
 
   const modalCloseHandler = () => {
     setIsModalVisible(false);
+  };
+
+  const modalInfoOpenHandler = () => {
+    setIsInfoModalVisible(true);
+  }
+
+  const modalInfoCloseHandler = () => {
+    setIsInfoModalVisible(false);
   };
 
   const modalSaveAndCloseHandler = (title:string | undefined, content:string | undefined) => {
@@ -86,6 +108,9 @@ const App = () => {
 
   useEffect(() => {    
     let value = null;     
+    let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
+    setIsGdprAccepted(gdprAccepted);
+
     value = localStorage.getItem('plateTickets');      
       if(!value) {
         setIsLoading(false);
@@ -97,21 +122,50 @@ const App = () => {
   }, []);
 
   useEffect(() => {    
-    if(!isLoading) {            
+    if(!isLoading && gdprAccepted) {            
       localStorage.setItem('plateTickets', JSON.stringify(tickets)); 
     }
-  }, [isLoading, tickets]);
+  }, [isLoading, tickets, gdprAccepted]);  
+
+  useEffect(() => {
+    const getQuote = async () => {
+      try {
+        const response = await fetch('/api/random');                        
+        const quotes: Quote[] = await response.json();
+        console.log(quotes[0]);
+        setQuote(quotes[0]);        
+      } catch (error) {
+        console.error('Failed to fetch quote:', error);
+      }
+    };
+
+    getQuote();
+  }, []);
 
   return (
-    <div className="plate">
-      <section className="plate__header section">
-        <h1 className="title is-1">The daily plate</h1>
+    <div className="plate">            
+      <section className="plate__header section">        
+        <h1 className="title is-1">{t('plate.title')}</h1>
         <p className="subtitle">Hey, this is your plate for your daily tasks. Organize your work, be productive, and have fun.</p>
         <button className="button is-primary" onClick={modalOpenHandler}>Create a new ticket</button>         
+        {quote && 
+          <blockquote>
+            <span>{quote.q}</span><span> - {quote.a}</span>
+          </blockquote>
+        }
       </section>          
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
-      <footer className='footer'>Created in 2023, mail the author <a href="mailto=szupa@o2.pl">here</a></footer>
+      <footer className='footer'>
+        <p>
+          Created in 2023, mail the author <a href="mailto:szupa@o2.pl">here</a>
+        </p>
+        <span className='has-text-link policy' onClick={modalInfoOpenHandler}>
+          Privacy Policy
+        </span>
+      </footer>
       <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
+      <InfoModal isVisible={isInfoModalVisible} close={modalInfoCloseHandler}/>
+      <GDPRConsent modalInfoOpener={modalInfoOpenHandler} />
     </div>
   );
 }

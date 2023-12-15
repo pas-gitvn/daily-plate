@@ -11,6 +11,8 @@ plate app
     - (done) update tickets column id while dropping
     - (done) editing and saving tickets to local storage
     - (done) removing tickets and saving to local storage 
+    - (done) add library for translations
+    - (done) add privacy policy
     - show title and content on editing 
     - add prompt on deleting to make sure that a ticket has to be removed
     - add tickets positioning in a column (so tickets can have different order)
@@ -19,7 +21,7 @@ plate app
     - adding pomodoro timer
     - add all tickets collapse button
     - adding moods, happy, sleepy etc.
-    - add motivators, like quotes, colors etc.
+    - (done) add motivators, like quotes, colors etc. // limited access zenquotes
     - add notes / canvas based    
     - as it is a daily app, think of comparing tasks to plates, dishes or food
     
@@ -30,11 +32,6 @@ plate app
     - groups for sharing data after login, can send a link, save, upload json, 
     - keep data somewhere in a cloud ?    
     - sharing tasks in the future ?
-    - free version with just daily tasks
-    - free/full switcher (say you want to stay in free mode)
-    - then in full mode login/create account and etc.
-    - tasks uploader for free version / copy local storage ? save as a file with node.js ?
-    - taxes if charging ? e.g. free version, and $7.99 version / per month
 
     requirements:
     - (done) tailwind or other lib for styling ? 

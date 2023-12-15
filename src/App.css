@@ -1,3 +1,11 @@
+blockquote {
+  text-align: right;
+}
+
+blockquote span:first-child {
+  font-style: italic;
+}
+
 .box.dragging,
 .box.dragging .button {
   background: rgba(255, 255, 255, 0.3);
@@ -8,8 +16,7 @@
   transition: 0.5s;
 }
 
-.grid__column {
-  max-width: 25%;
+.grid__column {  
   word-break: break-word;
 }
 
@@ -19,6 +26,8 @@
 }
 
 .footer {
+  display: flex;
+  justify-content: space-between;
   padding: 1.5rem 1.5rem;
 }
 

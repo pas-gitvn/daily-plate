@@ -1,0 +1,10 @@
+.gdpr {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #465362;
+  color: #fff;  
+  padding: 10px;
+}
