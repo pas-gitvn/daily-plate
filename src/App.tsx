@@ -146,8 +146,8 @@ const App = () => {
     <div className="plate">            
       <section className="plate__header section">        
         <h1 className="title is-1">{t('plate.title')}</h1>
-        <p className="subtitle">Hey, this is your plate for your daily tasks. Organize your work, be productive, and have fun.</p>
-        <button className="button is-primary" onClick={modalOpenHandler}>Create a new ticket</button>         
+        <p className="subtitle">{t('plate.subtitle')}</p>
+        <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>         
         {quote && 
           <blockquote>
             <span>{quote.q}</span><span> - {quote.a}</span>
@@ -157,10 +157,10 @@ const App = () => {
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
       <footer className='footer'>
         <p>
-          Created in 2023, mail the author <a href="mailto:szupa@o2.pl">here</a>
+          {t('info.created')} <a href="mailto:szupa@o2.pl">{t('info.here')}</a>
         </p>
         <span className='has-text-link policy' onClick={modalInfoOpenHandler}>
-          Privacy Policy
+          {t('info.policy')}
         </span>
       </footer>
       <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>

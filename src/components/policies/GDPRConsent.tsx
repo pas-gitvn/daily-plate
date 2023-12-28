@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './GDPRConsent.module.css';
 
 interface AProps {
@@ -6,6 +8,7 @@ interface AProps {
 }
 
 const GDPRConsent = (props:AProps) => {
+  const { t } = useTranslation();
   const [accepted, setAccepted] = useState(localStorage.getItem('gdpr:accepted'));
 
   const accept = () => {
@@ -20,8 +23,7 @@ const GDPRConsent = (props:AProps) => {
   return (
     <div className={styles.gdpr}>
       <p>
-        We use local storage to enhance your experience. By continuing to visit this site you agree to our use of local storage. 
-        Read the policy <span className='has-text-info' onClick={props.modalInfoOpener}>here</span>.
+      {t('info.gdpr')} <span className='has-text-info' onClick={props.modalInfoOpener}>{t('info.here')}</span>.
       </p>
       <button className='button is-info' onClick={accept}>Accept</button>
     </div>

@@ -1,5 +1,41 @@
 {
+  "cancel": "Cancel",
+  "content": "Content",
+  "create": "Create",
+  "info": {
+    "cookies": {
+      "title": "Cookies.",
+      "lineone": "We don't use cookies to gather user data.",
+      "whatis": "What is a cookie ?",
+      "info": "A browser cookie, also known as an HTTP cookie or web cookie, is a small piece of data stored on the user's computer by the web browser while browsing a website."
+    },
+    "created": "Created in 2023, mail the author",
+    "data": {
+      "title": "Data gathering",
+      "info": "There is no data gathering on our website. We don't use any third party services to gather data. The only data we use is the one you provide by creating tickets and it is saved on your machine only by using local storage."
+    },
+    "gdpr": "We use local storage to enhance your experience. By continuing to visit this site you agree to our use of local storage. Read the policy",
+    "here": "here",
+    "localstorage": {
+      "title": "Local storage",
+      "lineone": "We use local storage to save tickets data, so they can be refered later by using the same browser as before.",
+      "linetwo": "It means that by using the same browser a user will see saved tickets and by using another browser they won't be visible as local storage is browser specific.",
+      "info": "Local Storage is a method by which web pages locally store named key/value pairs inside a client's web browser. Similar to cookies, this stored data exists even when you close a browser tab, quit the browser, or turn off the computer. We use Local Storage, including but not limited to, to enhance your user experience by storing tickets data. Most browsers support Local Storage and allow you to disable this feature and to delete stored data, but if you do so, you may not be able to fully utilize all of the features of our services.",
+      "whatis": "What is a local storage ?"
+    },
+    "policy": "Privacy Policy"
+  },
   "plate": {
-    "title": "The daily plate"
-  }
+    "title": "The daily plate",
+    "subtitle": "Hey, this is your plate for your daily tasks. Organize your work, be productive, and have fun."
+  },
+  "save": "Save",
+  "ticket": {
+    "contentplaceholder": "Ticket content",
+    "create": "Create a new ticket",
+    "delete": "Delete ticket",
+    "edit": "Edit ticket",
+    "titleplaceholder": "Ticket title"
+  },
+  "title": "Title"
 }
