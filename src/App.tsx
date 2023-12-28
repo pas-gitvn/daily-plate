@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-regular-svg-icons'
 
 import 'bulma/css/bulma.min.css';
 import './App.css';
@@ -26,14 +28,16 @@ const App = () => {
   const [tickets, setTickets] = useState<Tickets>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isEditingTicket, setIsEditingTicket] = useState<boolean>(false);
-  const [editingTicketId, setEditingTicketId] = useState<number>();
+  const [editingTicketId, setEditingTicketId] = useState<number|null>(null);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
   const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);
   const [quote, setQuote] = useState<Quote | null>(null);
+  const [time, setTime] = useState<string>('');
 
   const modalOpenHandler = () => {
     setIsEditingTicket(false);
+    setEditingTicketId(null);
     setIsModalVisible(true);
   };
 
@@ -106,6 +110,21 @@ const App = () => {
     setTickets(updatedTickets);
   }
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+        const date: Date = new Date();
+        const hours: number | string = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+        const minutes: number | string = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+        const seconds: number | string = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+
+        setTime(`${hours}:${minutes}:${seconds}`);
+    }, 1000);
+
+    return () => {
+        clearInterval(timer);
+    };
+}, []);
+
   useEffect(() => {    
     let value = null;     
     let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
@@ -132,7 +151,6 @@ const App = () => {
       try {
         const response = await fetch('/api/random');                        
         const quotes: Quote[] = await response.json();
-        console.log(quotes[0]);
         setQuote(quotes[0]);        
       } catch (error) {
         console.error('Failed to fetch quote:', error);
@@ -147,13 +165,18 @@ const App = () => {
       <section className="plate__header section">        
         <h1 className="title is-1">{t('plate.title')}</h1>
         <p className="subtitle">{t('plate.subtitle')}</p>
-        <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>         
+        <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>       
+        {time && 
+          <span className="current-time title is-5 has-text-info-light">        
+            <FontAwesomeIcon icon={faClock} /> <span className='pl-2'>{time}</span>
+          </span>
+        }
         {quote && 
           <blockquote>
             <span>{quote.q}</span><span> - {quote.a}</span>
           </blockquote>
         }
-      </section>          
+      </section>
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
       <footer className='footer'>
         <p>
@@ -163,7 +186,7 @@ const App = () => {
           {t('info.policy')}
         </span>
       </footer>
-      <Modal isVisible={isModalVisible} close={modalCloseHandler} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
+      <Modal isVisible={isModalVisible} close={modalCloseHandler} tickets={tickets} ticketId={editingTicketId} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
       <InfoModal isVisible={isInfoModalVisible} close={modalInfoCloseHandler}/>
       <GDPRConsent modalInfoOpener={modalInfoOpenHandler} />
     </div>

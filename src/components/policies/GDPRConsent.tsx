@@ -23,7 +23,7 @@ const GDPRConsent = (props:AProps) => {
   return (
     <div className={styles.gdpr}>
       <p>
-      {t('info.gdpr')} <span className='has-text-info' onClick={props.modalInfoOpener}>{t('info.here')}</span>.
+      {t('info.gdpr')} <span className='anchor-type has-text-info' onClick={props.modalInfoOpener}>{t('info.here')}</span>.
       </p>
       <button className='button is-info' onClick={accept}>Accept</button>
     </div>

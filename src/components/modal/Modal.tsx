@@ -8,6 +8,13 @@ interface Aprops {
   close: () => void;
   save: (title:string | undefined, content:string | undefined) => void;
   onDelete: () => void;
+  tickets: {
+    id: number,
+    columnId: number,
+    title: string | undefined,
+    content: string | undefined,
+  }[],
+  ticketId: number | null,
 }
 
 const Modal = (props:Aprops) => {
@@ -24,6 +31,8 @@ const Modal = (props:Aprops) => {
     props.onDelete();
   };
 
+  const filteredTicket = props.isEditing ? props.tickets.filter((ticket) => ticket.id === props.ticketId)[0] : { title: '', content: ''};
+
   return (
     <div id="modal" className={`modal ${isVisible ? 'is-active' : ''}`}>
       <div className="modal-background" onClick={props.close}></div>
@@ -37,13 +46,13 @@ const Modal = (props:Aprops) => {
           <div className="field">
             <label className="label">{t('title')}</label>
             <div className="control">
-              <input className="input" ref={titleRef} type="text" placeholder={t('ticket.titleplaceholder')}/>
+              <input className="input" ref={titleRef} type="text" placeholder={t('ticket.titleplaceholder')} defaultValue={filteredTicket.title} />
             </div>
           </div>
           <div className="field">
             <label className="label">{t('content')}</label>
             <div className="control">
-              <textarea className="textarea" ref={contentRef} placeholder={t('ticket.contentplaceholder')}></textarea>
+              <textarea className="textarea" ref={contentRef} placeholder={t('ticket.contentplaceholder')} defaultValue={filteredTicket.content}></textarea>
             </div>
           </div>
         </section>

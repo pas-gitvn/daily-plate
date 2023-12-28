@@ -6,6 +6,23 @@ blockquote span:first-child {
   font-style: italic;
 }
 
+.anchor-type {
+  cursor: pointer;
+}
+
+.current-time {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #6f8b9d;
+}
+
+.current-time span {
+  display: inline-block;
+  min-width: 92px;
+}
+
 .box.dragging,
 .box.dragging .button {
   background: rgba(255, 255, 255, 0.3);

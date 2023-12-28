@@ -13,15 +13,15 @@ plate app
     - (done) removing tickets and saving to local storage 
     - (done) add library for translations
     - (done) add privacy policy
-    - show title and content on editing 
+    - (done) show title and content on editing 
+    - (done) displaying local time
+    - (done) add motivators, like quotes, colors etc. // limited access zenquotes
     - add prompt on deleting to make sure that a ticket has to be removed
     - add tickets positioning in a column (so tickets can have different order)
     - adding touch events
-    - displaying local time
     - adding pomodoro timer
     - add all tickets collapse button
     - adding moods, happy, sleepy etc.
-    - (done) add motivators, like quotes, colors etc. // limited access zenquotes
     - add notes / canvas based    
     - as it is a daily app, think of comparing tasks to plates, dishes or food
     
