@@ -7,8 +7,8 @@ import Grid from './components/grid/Grid';
 import Modal from './components/modal/Modal';
 import InfoModal from './components/modal/InfoModal';
 import GDPRConsent from './components/policies/GDPRConsent';
-import Time from './components/datetime/Time';
-import Quote from './components/quotes/Quote';
+import Header from './components/sections/Header';
+import Footer from './components/sections/Footer';
 
 type Tickets = {
   id: number;
@@ -125,23 +125,10 @@ const App = () => {
   }, [isLoading, tickets, gdprAccepted]);  
 
   return (
-    <div className="plate">            
-      <section className="plate__header section">        
-        <h1 className="title is-1">{t('plate.title')}</h1>
-        <p className="subtitle">{t('plate.subtitle')}</p>
-        <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>       
-        <Time />
-        <Quote />
-      </section>
-      <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
-      <footer className='footer'>
-        <p>
-          {t('info.created')} <a href="mailto:szupa@o2.pl">{t('info.here')}</a>
-        </p>
-        <span className='has-text-link policy' onClick={modalInfoOpenHandler}>
-          {t('info.policy')}
-        </span>
-      </footer>
+    <div className="plate">
+      <Header modalOpenHandler={modalOpenHandler} />
+      <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>
+      <Footer modalInfoOpenHandler={modalInfoOpenHandler} />
       <Modal isVisible={isModalVisible} close={modalCloseHandler} tickets={tickets} ticketId={editingTicketId} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
       <InfoModal isVisible={isInfoModalVisible} close={modalInfoCloseHandler}/>
       <GDPRConsent modalInfoOpener={modalInfoOpenHandler} />
