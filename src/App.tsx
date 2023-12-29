@@ -8,6 +8,7 @@ import Modal from './components/modal/Modal';
 import InfoModal from './components/modal/InfoModal';
 import GDPRConsent from './components/policies/GDPRConsent';
 import Time from './components/datetime/Time';
+import Quote from './components/quotes/Quote';
 
 type Tickets = {
   id: number;
@@ -15,11 +16,6 @@ type Tickets = {
   title: string | undefined;
   content: string | undefined;
 }[]
-
-interface Quote {
-  q: string;
-  a: string;
-}
 
 const App = () => {
   const { t } = useTranslation();
@@ -30,8 +26,7 @@ const App = () => {
   const [editingTicketId, setEditingTicketId] = useState<number|null>(null);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
-  const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);
-  const [quote, setQuote] = useState<Quote | null>(null);
+  const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);  
 
   const modalOpenHandler = () => {
     setIsEditingTicket(false);
@@ -129,20 +124,6 @@ const App = () => {
     }
   }, [isLoading, tickets, gdprAccepted]);  
 
-  useEffect(() => {
-    const getQuote = async () => {
-      try {
-        const response = await fetch('/api/random');                        
-        const quotes: Quote[] = await response.json();
-        setQuote(quotes[0]);        
-      } catch (error) {
-        console.error('Failed to fetch quote:', error);
-      }
-    };
-
-    getQuote();
-  }, []);
-
   return (
     <div className="plate">            
       <section className="plate__header section">        
@@ -150,11 +131,7 @@ const App = () => {
         <p className="subtitle">{t('plate.subtitle')}</p>
         <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>       
         <Time />
-        {quote && 
-          <blockquote>
-            <span>{quote.q}</span><span> - {quote.a}</span>
-          </blockquote>
-        }
+        <Quote />
       </section>
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>      
       <footer className='footer'>

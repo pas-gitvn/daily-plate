@@ -35,7 +35,7 @@ const GridColumn = (props:AProps) => {
         onDragEnter={props.onDragEnter}
         onDragLeave={props.onDragLeave}
       >
-        <h3 className="title is-3 mt-4 has-text-centered is-unselectable">{props.name}</h3>        
+        <h3 className="title is-3 mt-4 has-text-centered has-text-black is-unselectable">{props.name}</h3>        
         {filteredTickets.map((ticket) => (
           <Ticket key={ticket.id} id={ticket.id} onEdit={props.onEditTicket} onDragStart={props.onDragStart} onDragEnd={props.onDragEnd} title={ticket.title} content={ticket.content} />
         ))}          
