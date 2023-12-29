@@ -2,6 +2,7 @@
   "cancel": "Cancel",
   "content": "Content",
   "create": "Create",
+  "darkmode": "Switch to dark mode",
   "info": {
     "cookies": {
       "title": "Cookies.",
@@ -25,6 +26,7 @@
     },
     "policy": "Privacy Policy"
   },
+  "lightmode": "Switch to light mode",
   "plate": {
     "title": "The daily plate",
     "subtitle": "Hey, this is your plate for your daily tasks. Organize your work, be productive, and have fun."

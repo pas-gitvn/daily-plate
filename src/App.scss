@@ -1,0 +1,92 @@
+.anchor-type {
+  cursor: pointer;
+}
+
+blockquote {
+  text-align: right;
+  span:first-child {
+    font-style: italic;
+  }
+}
+
+.current-time {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #6f8b9d;
+  span {
+    display: inline-block;
+    min-width: 92px;  
+  }
+}
+
+.box {
+  &.dragging {
+    transform: scale(0.75);
+    transition: 0.5s;
+  }
+  &.dragging,
+  &.dragging .button {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.grid__column {  
+  word-break: break-word;
+  &.over {
+    filter: brightness(85%);
+    transition: 0.3s;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem;
+}
+
+.dark-mode {
+  background-color: #1f1f1f;
+  color: #efefef;
+
+  input,
+  textarea {
+    color: #efefef;
+    background-color: #333;
+    border-color: #000;
+  }
+  
+  .plate__header .title,
+  .plate__header .subtitle,
+  .modal-card-title,
+  .modal-card-body label {
+    color: #efefef;
+  }
+
+  .modal-card-head,
+  .modal-card-foot {
+    background-color: #000;
+    border-color: #393939;
+  }
+
+  .modal-card-body {
+    background-color: #1f1f1f;
+  }
+
+  .footer {
+    background-color: #000;  
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .toogle-dark {
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .footer {
+    padding: 1.5rem 3rem;
+  }
+}

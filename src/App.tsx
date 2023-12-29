@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import 'bulma/css/bulma.min.css';
-import './App.css';
+import './App.scss';
 import Grid from './components/grid/Grid';
 import Modal from './components/modal/Modal';
 import InfoModal from './components/modal/InfoModal';
@@ -18,7 +17,7 @@ type Tickets = {
 }[]
 
 const App = () => {
-  const { t } = useTranslation();
+  console.log('App rendered...');
 
   const [tickets, setTickets] = useState<Tickets>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
