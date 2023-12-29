@@ -11,6 +11,8 @@ const GDPRConsent = (props:AProps) => {
   const { t } = useTranslation();
   const [accepted, setAccepted] = useState(localStorage.getItem('gdpr:accepted'));
 
+  // todo move to app tsx to prevent data loss while accept button is clicked
+  // not saving until refreshed
   const accept = () => {
     localStorage.setItem('gdpr:accepted', 'true');
     setAccepted('true');

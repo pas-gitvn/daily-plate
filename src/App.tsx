@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock } from '@fortawesome/free-regular-svg-icons'
 
 import 'bulma/css/bulma.min.css';
 import './App.css';
@@ -9,6 +7,7 @@ import Grid from './components/grid/Grid';
 import Modal from './components/modal/Modal';
 import InfoModal from './components/modal/InfoModal';
 import GDPRConsent from './components/policies/GDPRConsent';
+import Time from './components/datetime/Time';
 
 type Tickets = {
   id: number;
@@ -33,7 +32,6 @@ const App = () => {
   const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
   const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);
   const [quote, setQuote] = useState<Quote | null>(null);
-  const [time, setTime] = useState<string>('');
 
   const modalOpenHandler = () => {
     setIsEditingTicket(false);
@@ -110,21 +108,6 @@ const App = () => {
     setTickets(updatedTickets);
   }
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-        const date: Date = new Date();
-        const hours: number | string = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-        const minutes: number | string = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-        const seconds: number | string = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-
-        setTime(`${hours}:${minutes}:${seconds}`);
-    }, 1000);
-
-    return () => {
-        clearInterval(timer);
-    };
-}, []);
-
   useEffect(() => {    
     let value = null;     
     let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
@@ -166,11 +149,7 @@ const App = () => {
         <h1 className="title is-1">{t('plate.title')}</h1>
         <p className="subtitle">{t('plate.subtitle')}</p>
         <button className="button is-primary" onClick={modalOpenHandler}>{t('ticket.create')}</button>       
-        {time && 
-          <span className="current-time title is-5 has-text-info-light">        
-            <FontAwesomeIcon icon={faClock} /> <span className='pl-2'>{time}</span>
-          </span>
-        }
+        <Time />
         {quote && 
           <blockquote>
             <span>{quote.q}</span><span> - {quote.a}</span>
