@@ -34,6 +34,7 @@
   "save": "Save",
   "ticket": {
     "contentplaceholder": "Ticket content",
+    "confirmDelete": "Are you sure you want to delete this ticket ?",
     "create": "Create a new ticket",
     "delete": "Delete ticket",
     "edit": "Edit ticket",

@@ -28,7 +28,9 @@ const Modal = (props:Aprops) => {
   };
 
   const handleDelete = () => {
-    props.onDelete();
+    if (window.confirm(t('ticket.confirmDelete'))) {
+      props.onDelete();
+    }    
   };
 
   const filteredTicket = props.isEditing ? props.tickets.filter((ticket) => ticket.id === props.ticketId)[0] : { title: '', content: ''};
