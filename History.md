@@ -21,21 +21,14 @@ plate app
     - (done) add tailwind or other lib for styling ? 
     - (done) add some kind of a nice font
     - (done) add icons package
+    - (done) add prompt on deleting to make sure that a ticket has to be removed
     - (in progress) add tests with coverage      
-    - add prompt on deleting to make sure that a ticket has to be removed
     - add tickets positioning in a column (so tickets can have different order)
     - adding touch events
-    - adding pomodoro timer
-    - add all tickets collapse button
-    - adding moods, happy, sleepy etc.
+    - adding pomodoro timer    
     - add notes / canvas based    
-    
-    - personal efficiency calculator / think of an algorithm (today you did X tasks in Y hours)
-    - progress charts (some 3rd party lib for that)
-
-    - accounts in the future maybe ?    
-    - groups for sharing data after login, can send a link, save, upload json, 
-    - keep data somewhere in a cloud ?    
-    - sharing tasks in the future ?
+    - add personal efficiency table (today you did X ticket, Y are in progress, Z are waiting)
+    - add progress charts (some 3rd party lib for that)
+    - sharing tasks in the future ? (by using hash keys and storing data e.g. somewhere in a cloud)
 
     quote of the day can be used with https://zenquotes.io/api/today from https://zenquotes.io/
