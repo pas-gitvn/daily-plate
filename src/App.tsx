@@ -8,6 +8,7 @@ import InfoModal from './components/modal/InfoModal';
 import GDPRConsent from './components/policies/GDPRConsent';
 import Header from './components/sections/Header';
 import Footer from './components/sections/Footer';
+import Stats from "./components/ticket/Stats";
 
 type Tickets = {
   id: number;
@@ -25,7 +26,7 @@ const App = () => {
   const [editingTicketId, setEditingTicketId] = useState<number|null>(null);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
-  const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);  
+  const [gdprAccepted, setIsGdprAccepted] = useState<boolean>(false);
 
   const modalOpenHandler = () => {
     setIsEditingTicket(false);
@@ -49,7 +50,7 @@ const App = () => {
     setIsModalVisible(false);
     if (isEditingTicket) {
       const updatedTickets = tickets.map((ticket) => {
-        if (ticket.id === editingTicketId) {        
+        if (ticket.id === editingTicketId) {
           let newTicket = {
             ...ticket,
             title: title,
@@ -67,13 +68,13 @@ const App = () => {
         columnId: 1,
         title: title,
         content: content,
-      }]);   
-    }    
+      }]);
+    }
   };
 
-  const updateTicketsColumnsIds = (ticketId:number, columnId:number) => {      
+  const updateTicketsColumnsIds = (ticketId:number, columnId:number) => {
     const updatedTickets = tickets.map((ticket) => {
-      if (ticket.id === ticketId && !!columnId !== false) {        
+      if (ticket.id === ticketId && !!columnId !== false) {
         let newTicket = {
           ...ticket,
           columnId: columnId,
@@ -90,42 +91,51 @@ const App = () => {
   const onEditTicket = (ticketId:number) => {
     setIsModalVisible(true);
     setIsEditingTicket(true);
-    setEditingTicketId(ticketId);    
-  }; 
+    setEditingTicketId(ticketId);
+  };
 
   const onDeleteTicket = () => {
-    setIsEditingTicket(false);    
+    setIsEditingTicket(false);
     setIsModalVisible(false);
-    const updatedTickets = tickets.filter((ticket) => {      
+    const updatedTickets = tickets.filter((ticket) => {
       return ticket.id !== editingTicketId;
     });
     setTickets(updatedTickets);
   }
 
-  useEffect(() => {    
-    let value = null;     
+  const ticketStat = (columnId:number) => {
+    const filteredTickets = tickets.filter((ticket) => {
+      return ticket.columnId === columnId;
+    })
+    return filteredTickets.length || 0;
+  }
+
+  useEffect(() => {
+    let value = null;
     let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
     setIsGdprAccepted(gdprAccepted);
 
-    value = localStorage.getItem('plateTickets');      
+    value = localStorage.getItem('plateTickets');
       if(!value) {
         setIsLoading(false);
         return;
       };
-            
+
       setTickets(JSON.parse(value));
-      setIsLoading(false);      
+      setIsLoading(false);
   }, []);
 
-  useEffect(() => {    
-    if(!isLoading && gdprAccepted) {            
-      localStorage.setItem('plateTickets', JSON.stringify(tickets)); 
+  useEffect(() => {
+    if(!isLoading && gdprAccepted) {
+      localStorage.setItem('plateTickets', JSON.stringify(tickets));
     }
-  }, [isLoading, tickets, gdprAccepted]);  
+  }, [isLoading, tickets, gdprAccepted]);
 
   return (
     <div className="plate">
-      <Header modalOpenHandler={modalOpenHandler} />
+      <Header modalOpenHandler={modalOpenHandler}>
+        <Stats ticketStat={ticketStat} ticketsLength={tickets.length}/>
+      </Header>
       <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>
       <Footer modalInfoOpenHandler={modalInfoOpenHandler} />
       <Modal isVisible={isModalVisible} close={modalCloseHandler} tickets={tickets} ticketId={editingTicketId} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
