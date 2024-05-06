@@ -51,12 +51,11 @@ const App = () => {
     if (isEditingTicket) {
       const updatedTickets = tickets.map((ticket) => {
         if (ticket.id === editingTicketId) {
-          let newTicket = {
+          return {
             ...ticket,
             title: title,
             content: content,
-          };
-          return newTicket;
+          }
         }
         return ticket;
       });
@@ -74,12 +73,11 @@ const App = () => {
 
   const updateTicketsColumnsIds = (ticketId:number, columnId:number) => {
     const updatedTickets = tickets.map((ticket) => {
-      if (ticket.id === ticketId && !!columnId !== false) {
-        let newTicket = {
+      if (ticket.id === ticketId && !!columnId) {
+        return {
           ...ticket,
           columnId: columnId,
-        };
-        return newTicket;
+        }
       }
       return ticket;
     });
@@ -111,7 +109,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    let value = null;
+    let value;
     let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
     setIsGdprAccepted(gdprAccepted);
 
@@ -119,7 +117,7 @@ const App = () => {
       if(!value) {
         setIsLoading(false);
         return;
-      };
+      }
 
       setTickets(JSON.parse(value));
       setIsLoading(false);
