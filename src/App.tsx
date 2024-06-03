@@ -108,19 +108,24 @@ const App = () => {
     return filteredTickets.length || 0;
   }
 
+  const acceptGDPR = () => {
+    localStorage.setItem('gdpr:accepted', 'true');
+    setIsGdprAccepted(true);
+  }
+
   useEffect(() => {
     let value;
     let gdprAccepted = !!localStorage.getItem('gdpr:accepted');
     setIsGdprAccepted(gdprAccepted);
 
     value = localStorage.getItem('plateTickets');
-      if(!value) {
-        setIsLoading(false);
-        return;
-      }
-
-      setTickets(JSON.parse(value));
+    if(!value) {
       setIsLoading(false);
+      return;
+    }
+
+    setTickets(JSON.parse(value));
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -138,7 +143,7 @@ const App = () => {
       <Footer modalInfoOpenHandler={modalInfoOpenHandler} />
       <Modal isVisible={isModalVisible} close={modalCloseHandler} tickets={tickets} ticketId={editingTicketId} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
       <InfoModal isVisible={isInfoModalVisible} close={modalInfoCloseHandler}/>
-      <GDPRConsent modalInfoOpener={modalInfoOpenHandler} />
+      <GDPRConsent modalInfoOpener={modalInfoOpenHandler} accept={acceptGDPR}/>
     </div>
   );
 }

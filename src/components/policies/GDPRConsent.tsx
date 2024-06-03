@@ -1,22 +1,15 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './GDPRConsent.module.css';
 
 interface AProps {
   modalInfoOpener: () => void;
+  accept: () => void;
 }
 
 const GDPRConsent = (props:AProps) => {
   const { t } = useTranslation();
-  const [accepted, setAccepted] = useState(localStorage.getItem('gdpr:accepted'));
-
-  // todo move to app tsx to prevent data loss while accept button is clicked
-  // not saving until refreshed
-  const accept = () => {
-    localStorage.setItem('gdpr:accepted', 'true');
-    setAccepted('true');
-  };
+  const accepted = localStorage.getItem('gdpr:accepted');
 
   if (accepted === 'true') {
     return null;
@@ -27,7 +20,7 @@ const GDPRConsent = (props:AProps) => {
       <p>
       {t('info.gdpr')} <span className='anchor-type has-text-info' onClick={props.modalInfoOpener}>{t('info.here')}</span>.
       </p>
-      <button className='button is-info' onClick={accept}>Accept</button>
+      <button className='button is-info' onClick={props.accept}>Accept</button>
     </div>
   );
 };
