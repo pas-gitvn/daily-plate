@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Modal.module.css';
 
@@ -22,6 +22,12 @@ const Modal = (props:Aprops) => {
   const isVisible = props.isVisible;
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+  
+  useEffect(() => {
+    const filteredTicket = props.isEditing ? props.tickets.filter((ticket) => ticket.id === props.ticketId)[0] : { title: '', content: ''};
+    if (titleRef.current) titleRef.current.value = filteredTicket.title || '';
+    if (contentRef.current) contentRef.current.value = filteredTicket.content || '';
+  }, [props.isVisible, props.isEditing, props.ticketId, props.tickets]);
 
   const handleSave = () => {
     props.save(titleRef.current?.value, contentRef.current?.value);
@@ -32,8 +38,6 @@ const Modal = (props:Aprops) => {
       props.onDelete();
     }    
   };
-
-  const filteredTicket = props.isEditing ? props.tickets.filter((ticket) => ticket.id === props.ticketId)[0] : { title: '', content: ''};
 
   return (
     <div id="modal" className={`modal ${isVisible ? 'is-active' : ''}`}>
@@ -48,13 +52,22 @@ const Modal = (props:Aprops) => {
           <div className="field">
             <label className="label">{t('title')}</label>
             <div className="control">
-              <input className="input" ref={titleRef} type="text" placeholder={t('ticket.titleplaceholder')} defaultValue={filteredTicket.title} />
+              <input 
+                className="input" 
+                ref={titleRef} 
+                type="text" 
+                placeholder={t('ticket.titleplaceholder')}
+              />
             </div>
           </div>
           <div className="field">
             <label className="label">{t('content')}</label>
             <div className="control">
-              <textarea className="textarea" ref={contentRef} placeholder={t('ticket.contentplaceholder')} defaultValue={filteredTicket.content}></textarea>
+              <textarea 
+                className="textarea" 
+                ref={contentRef} 
+                placeholder={t('ticket.contentplaceholder')} 
+              />
             </div>
           </div>
         </section>
