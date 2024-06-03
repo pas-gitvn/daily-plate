@@ -17,7 +17,7 @@ blockquote {
   background-color: #6f8b9d;
   span {
     display: inline-block;
-    min-width: 92px;  
+    min-width: 92px;
   }
 }
 
@@ -30,10 +30,18 @@ blockquote {
   &.dragging .button {
     background: rgba(255, 255, 255, 0.3);
   }
+  &:first-of-type {
+    margin-top: 28px;
+  }
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
 }
 
-.grid__column {  
+.grid__column {
   word-break: break-word;
+  margin-bottom: 10px;
+  border-radius: 6px;
   &.over {
     filter: brightness(85%);
     transition: 0.3s;
@@ -50,13 +58,34 @@ blockquote {
   background-color: #1f1f1f;
   color: #efefef;
 
+  strong {
+    color: #efefef;
+  }
+
+  .box {
+    background-color: #1f1f1f;
+    color: #efefef;
+  }
+
+  .button.is-light {
+    background: #333;
+    color: #efefef;
+  }
+
   input,
   textarea {
     color: #efefef;
     background-color: #333;
     border-color: #000;
   }
-  
+
+  .fa-pen-to-square {
+    color: #efefef;
+    &:hover {
+      color: #afafaf;
+    }
+  }
+
   .plate__header .title,
   .plate__header .subtitle,
   .modal-card-title,
@@ -75,13 +104,23 @@ blockquote {
   }
 
   .footer {
-    background-color: #000;  
+    background-color: #000;
   }
 }
 
 @media screen and (min-width: 768px) {
   .toogle-dark {
     margin-left: 1rem;
+  }
+
+  .grid__column {
+    margin: 0 5px;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 

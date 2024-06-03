@@ -22,12 +22,12 @@ plate app
     - (done) add some kind of a nice font
     - (done) add icons package
     - (done) add prompt on deleting to make sure that a ticket has to be removed
+    - (done) add personal stats table (you did X tickets, Y are in progress, Z are waiting)
     - (in progress) add tests with coverage      
     - add tickets positioning in a column (so tickets can have different order)
     - adding touch events
     - adding pomodoro timer    
-    - add notes / canvas based    
-    - add personal efficiency table (today you did X ticket, Y are in progress, Z are waiting)
+    - add notes / canvas based        
     - add progress charts (some 3rd party lib for that)
     - sharing tasks in the future ? (by using hash keys and storing data e.g. somewhere in a cloud)
 
