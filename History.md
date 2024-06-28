@@ -23,12 +23,13 @@ plate app
     - (done) add icons package
     - (done) add prompt on deleting to make sure that a ticket has to be removed
     - (done) add personal stats table (you did X tickets, Y are in progress, Z are waiting)
-    - (in progress) add tests with coverage      
+    - (in progress) add tests with coverage
     - add tickets positioning in a column (so tickets can have different order)
     - adding touch events
-    - adding pomodoro timer    
-    - add notes / canvas based        
-    - add progress charts (some 3rd party lib for that)
+    - adding pomodoro timer
+    - add notes / canvas based
+    - add high prio ticket's switch with different background color
     - sharing tasks in the future ? (by using hash keys and storing data e.g. somewhere in a cloud)
+    - add redux architecture to prevent passing props and actions through many levels
 
     quote of the day can be used with https://zenquotes.io/api/today from https://zenquotes.io/
