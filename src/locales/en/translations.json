@@ -10,7 +10,7 @@
       "whatis": "What is a cookie ?",
       "info": "A browser cookie, also known as an HTTP cookie or web cookie, is a small piece of data stored on the user's computer by the web browser while browsing a website."
     },
-    "created": "Created in 2023, mail the author",
+    "created": "Created with React, TypeScript and Bulma, mail the author",
     "data": {
       "title": "Data gathering",
       "info": "We don't use any third party services or mechanisms for gathering and processing data. The only data used in the platform is the one you provide by creating tickets. The tickets data is saved on your machine by using local storage and it is not send anywhere or visible for anyone else."

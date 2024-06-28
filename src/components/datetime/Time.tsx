@@ -27,7 +27,7 @@ const Time = (props:AProps) => {
   return (
     <div>
       {time && 
-        <span className="current-time title is-5 has-text-info-light">        
+        <span className="current-time title is-4 has-text-info-light">        
           <FontAwesomeIcon icon={faClock} /> <span className='pl-2'>{time}</span>
         </span>
       }

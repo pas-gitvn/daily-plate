@@ -21,7 +21,7 @@ const Header = (props:Aprops) => {
     <section className="plate__header section">
       <h1 className="title is-1">{t('plate.title')}</h1>
       <p className="subtitle">{t('plate.subtitle')}</p>
-      {props.children}
+      {/* {props.children} */}
       <button className="button is-primary" onClick={props.modalOpenHandler}>{t('ticket.create')}</button>
       <button className="button toogle-dark" onClick={toogleDarkMode}>
         {isDarkMode ? t('lightmode') : t('darkmode')}

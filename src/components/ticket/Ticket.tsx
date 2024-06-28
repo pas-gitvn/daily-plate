@@ -40,12 +40,17 @@ const Ticket = (props: Props) => {
         <FontAwesomeIcon icon={faEdit} />
       </span>
       <span className={styles.ticket__number}>Ticket {props.id}</span>
-      <p className='is-size-5'> {props.title}</p>
+      <p className='is-size-5 mt-2'> {props.title}</p>
 
       <span className={`button is-light ${styles['toggle-content']}`} onClick={handleOnClick}>{detailsIcon}</span>
       {detailsStatus && <div className="ticket-details">
         <div className='mt-2'>
-          {props.content}
+        {props.content?.split('\n').map((line, index, array) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < array.length - 1 && <br />}
+          </React.Fragment>
+        ))}
         </div>
       </div>}
     </div>
