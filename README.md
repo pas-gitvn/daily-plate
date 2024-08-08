@@ -1,11 +1,11 @@
-## Daily plate
+# Daily plate
 The daily plate is a simple kanban board to organize your work better. Create tickets, move them around the columns and that's it.
 If you accept the policy, all your tickets will be stored in the local storage (remember to use the same browser later).
 
 ## Screenshots of the App
 ![Zrzut ekranu 2024-08-8 o 11 49 52](https://github.com/user-attachments/assets/fee26f7c-689c-4d71-a3b4-098d7bdd6670)
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
