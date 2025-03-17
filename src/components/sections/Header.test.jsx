@@ -1,22 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
-import i18n from 'i18next';
-import enTranslations from '../../locales/en/translations.json'; // Path to your translation file
-import Header from './Header';
-
-beforeAll(() => {
-  i18n.init({
-    resources: {
-      en: {
-        translation: enTranslations,
-      },
-    },
-    lng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
-});
+import i18n from '../../i18n';import Header from './Header';
 
 describe('Header', () => {
   test('renders the text properly even when mode selector is clicked', () => {
