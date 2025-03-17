@@ -4,6 +4,11 @@ If you accept the policy, all your tickets will be stored in the local storage (
 
 ## Screenshots of the App
 ![Zrzut ekranu 2024-08-8 o 11 49 52](https://github.com/user-attachments/assets/fee26f7c-689c-4d71-a3b4-098d7bdd6670)
+<img width="1438" alt="Zrzut ekranu 2025-03-17 o 22 57 22" src="https://github.com/user-attachments/assets/68a90145-0b0d-4734-b6e2-dd123fdd78b0" />
+<img width="1382" alt="Zrzut ekranu 2025-03-17 o 22 59 03" src="https://github.com/user-attachments/assets/d127debc-3c03-44b5-8b88-a8841845e789" />
+<img width="1405" alt="Zrzut ekranu 2025-03-17 o 22 59 20" src="https://github.com/user-attachments/assets/7048c115-8d9c-49f8-b6ed-3c860764d793" />
+
+
 
 ## Getting Started with Create React App
 
