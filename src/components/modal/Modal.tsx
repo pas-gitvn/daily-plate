@@ -74,7 +74,7 @@ const Modal = (props:Aprops) => {
         <footer className="modal-card-foot">
           {!props.isEditing && <button className="button is-primary" onClick={handleSave}>{t('create')}</button>}
           {props.isEditing && <button className="button is-primary" onClick={handleSave}>{t('save')}</button>}
-          <button className="button" onClick={props.close}>{t('cancel')}</button>
+          <button className="button ml-2" onClick={props.close}>{t('cancel')}</button>
           {props.isEditing && <button className={`button is-danger ${styles['delete-ticket']}`} onClick={handleDelete}>{t('ticket.delete')}</button>}
         </footer>
       </div>   

@@ -14,7 +14,7 @@ blockquote {
   top: 1.5rem;
   right: 1.5rem;
   padding: 0.5rem 1rem;
-  background-color: #6f8b9d;
+  background-color: #6d8996;
   span {
     display: inline-block;
     min-width: 112px;
@@ -22,6 +22,7 @@ blockquote {
 }
 
 .box {
+  background-color: rgba(255, 255, 255, 0.95);
   &.dragging {
     transform: scale(0.75);
     transition: 0.5s;
@@ -38,10 +39,14 @@ blockquote {
   }
 }
 
+.current-time,
+.grid__column {
+  border-radius: 6px;
+}
+
 .grid__column {
   word-break: break-word;
   margin-bottom: 10px;
-  border-radius: 6px;
   &.over {
     filter: brightness(85%);
     transition: 0.3s;
@@ -63,13 +68,17 @@ blockquote {
   }
 
   .box {
-    background-color: #1f1f1f;
+    background-color: rgba(31, 31, 31, 0.95);
     color: #efefef;
   }
 
   .button.is-light {
     background: #333;
     color: #efefef;
+  }
+
+  .current-time {
+    background-color: #3a4a51;
   }
 
   input,

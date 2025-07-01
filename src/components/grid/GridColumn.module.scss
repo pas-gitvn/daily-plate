@@ -1,0 +1,41 @@
+.grid__column-waiting {
+  background: #aed8ea;
+}
+
+.grid__column-doing {
+  background: #ebe8ae;
+}
+
+.grid__column-testing {
+  background: #ebaeb8;
+}
+
+.grid__column-done {
+  background: #6d8996;
+}
+
+.grid__column-title {
+  color: #000;
+}
+
+:global(.dark-mode) {
+  .grid__column-waiting {
+    background: #2a4b55;
+  }
+  
+  .grid__column-doing {
+    background: #575236;
+  }
+  
+  .grid__column-testing {
+    background: #5a2d34;
+  }
+  
+  .grid__column-done {
+    background: #3a4a51;
+  }
+
+  .grid__column-title {
+    color: #fff;
+  }
+}
