@@ -15,11 +15,10 @@ type Tickets = {
   columnId: number;
   title: string | undefined;
   content: string | undefined;
+  position: number;
 }[]
 
 const App = () => {
-  console.log('App rendered...');
-
   const [tickets, setTickets] = useState<Tickets>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isEditingTicket, setIsEditingTicket] = useState<boolean>(false);
@@ -62,28 +61,90 @@ const App = () => {
       setTickets(updatedTickets);
     } else {
       const nextId = tickets.length + 1;
+      const nextPosition = calculateTicketPosition(1);
       setTickets(prev => [...prev, {
         id: nextId,
         columnId: 1,
         title: title,
         content: content,
+        position: nextPosition,
       }]);
     }
   };
 
-  const updateTicketsColumnsIds = (ticketId:number, columnId:number) => {
-    const updatedTickets = tickets.map((ticket) => {
-      if (ticket.id === ticketId && !!columnId) {
-        return {
-          ...ticket,
-          columnId: columnId,
-        }
-      }
-      return ticket;
+  const calculateTicketPosition = (columnId:number) => {
+    const filteredTickets = tickets.filter((ticket) => {
+      return ticket.columnId === columnId;
     });
+    return filteredTickets.length + 1;
+  };
 
-    // issue of changeing column id and then child node is different while removing on drop
-    setTickets(updatedTickets);
+  const updatePositionsInColumn = (ticketId:number, columnId:number, ticketToBeLower: HTMLElement) => { 
+    if(ticketToBeLower) {
+      const ticketToBeLowerID = ticketToBeLower.dataset.id;
+      const ticket = tickets.find(el => el.id === Number(ticketToBeLowerID));
+      const ticketPosition = ticket?.position!;
+
+      // Shift other tickets in the column down
+      const shiftedTickets = tickets.map(ticket => {
+        if (
+          ticket.columnId === columnId &&
+          ticket.id !== ticketId &&
+          ticket.position >= ticketPosition
+        ) {
+          return {
+            ...ticket,
+            position: ticket.position + 1,
+          };
+        }
+        return ticket;
+      });
+
+      // Insert the dragged ticket at the desired position
+      const updatedTickets = shiftedTickets.map(ticket => {
+        if (ticket.id === ticketId) {
+          return {
+            ...ticket,
+            position: ticketPosition,
+            columnId: columnId,
+          };
+        }
+        return ticket;
+      });
+
+      setTickets(normalizeColumnPositions(updatedTickets, columnId));
+    } else {
+      const columnTickets = tickets
+      .filter(ticket => ticket.columnId === columnId && ticket.id !== ticketId);
+
+      const maxPosition = columnTickets.length
+      ? Math.max(...columnTickets.map(t => t.position)) + 1
+      : 0;
+     
+      const updatedTickets = tickets.map((ticket) => {
+        if(ticket.id === ticketId) {
+          return {
+            ...ticket,
+            position: maxPosition,
+            columnId: columnId,
+          }
+        }
+        return ticket;
+      });
+      
+      setTickets(normalizeColumnPositions(updatedTickets, columnId));
+    }
+  };
+
+  const normalizeColumnPositions = (tickets: Tickets, columnId: number): Tickets => {
+    const sorted = tickets
+      .filter(t => t.columnId === columnId)
+      .sort((a, b) => a.position - b.position);
+  
+    return tickets.map(t => {
+      const index = sorted.findIndex(s => s.id === t.id);
+      return index !== -1 ? { ...t, position: index + 1} : t;
+    });
   };
 
   const onEditTicket = (ticketId:number) => {
@@ -139,7 +200,7 @@ const App = () => {
       <Header modalOpenHandler={modalOpenHandler}>
         <Stats ticketStat={ticketStat} ticketsLength={tickets.length}/>
       </Header>
-      <Grid tickets={tickets} updateColumns={updateTicketsColumnsIds} onEditTicket={onEditTicket}/>
+      <Grid tickets={tickets} updatePositionsInColumn={updatePositionsInColumn} onEditTicket={onEditTicket}/>
       <Footer modalInfoOpenHandler={modalInfoOpenHandler} />
       <Modal isVisible={isModalVisible} close={modalCloseHandler} tickets={tickets} ticketId={editingTicketId} save={modalSaveAndCloseHandler} isEditing={isEditingTicket} onDelete={onDeleteTicket}/>
       <InfoModal isVisible={isInfoModalVisible} close={modalInfoCloseHandler}/>

@@ -18,6 +18,7 @@ interface AProps {
     columnId: number,
     title: string | undefined,
     content: string | undefined,
+    position: number,
   }[]
 }
 
@@ -25,7 +26,9 @@ const GridColumn = (props:AProps) => {
 
   const tickets = props.tickets;
 
-  const filteredTickets = tickets.filter((ticket) => ticket.columnId === props.id);
+  const filteredTickets = tickets
+  .filter((ticket) => ticket.columnId === props.id)
+  .sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
 
   return (
     <div

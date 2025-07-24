@@ -8,17 +8,18 @@ interface Aprops {
     columnId: number,
     title: string | undefined,
     content: string | undefined,
+    position: number,
   }[],
-  updateColumns: (ticketId: number, columnId: number) => void,
   onEditTicket: (ticketId: number) => void,
+  updatePositionsInColumn: (ticketId:number, columnId:number, ticketToBeLower: HTMLElement) => void,
 }
 
 const Grid = (props: Aprops) => {
   let draggedTicket:HTMLElement;
   let draggedTicketId:number;
   let destinationColumnId:number;
-  let draggedStartPosition:number;
   let columnTarget:HTMLElement;
+  let insertBeforeBox:HTMLElement;
 
   const columns: { id: number, class: string, name: string }[] = [
     { id: 1, class: 'waiting', name: 'Waiting'},
@@ -29,22 +30,20 @@ const Grid = (props: Aprops) => {
 
   const onDragStart = (ticketId: number) => {        
     return (e: React.DragEvent<HTMLDivElement>) => {          
-      draggedTicket = e.target as HTMLElement;
+      draggedTicket = e.currentTarget as HTMLElement;
       draggedTicketId = ticketId;
-      draggedStartPosition = e.pageY;
       draggedTicket.classList.add('dragging');      
     };
   };
 
   const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {    
     draggedTicket.classList.remove('dragging');
-    let columns = document.querySelectorAll('.column');
-    columns.forEach((column) => {
+    let documentColumns = document.querySelectorAll('.column');
+    documentColumns.forEach((column) => {
       column.classList.remove('over');
-    })
+    });
 
-    // update and save tickets colums ids
-    props.updateColumns(draggedTicketId, destinationColumnId);
+    props.updatePositionsInColumn(draggedTicketId, destinationColumnId, insertBeforeBox);
   };
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -55,6 +54,10 @@ const Grid = (props: Aprops) => {
     e.preventDefault();
     let target = e.target as HTMLElement;
     let column = target.closest('.column') as HTMLElement;
+    let documentColumns = document.querySelectorAll('.column');
+    documentColumns.forEach((column) => {
+      column.classList.remove('over');
+    });
     columnTarget = column;
     column.classList.add('over');
   };
@@ -73,30 +76,22 @@ const Grid = (props: Aprops) => {
       let target = e.target as HTMLElement;
       let column = target.closest('.column') as HTMLElement;
   
-      let ticketBoxes = Array.from(column.children).filter((el) => {
-        return el.classList.contains('box');
-      }) as HTMLElement[];
-  
-      // distance from top to a cursor position of the dragged ticket
-      // e.g. ticket's top position is 100 and cursor position is 120
-      // then the distance is 20
-      let draggedTopDistance = draggedStartPosition - draggedTicket.offsetTop;
-      
-      // if a dropped ticket's position is in the top 35% of the target ticket area
-      // then target ticket will be set to lower position
-      // e.g. a ticket below dropped one have a position of 100 and height of 100,
-      // so the calculated factor is going to be 135
-      // if a dragged element calculated postion will be less than 135, then that dragged ticket will be placed before
-      let ticketToBeLower = ticketBoxes.find((element) => {
-        return (element.offsetTop + element.offsetHeight * 0.35) > e.pageY - draggedTopDistance;
-      });
-  
-      if(draggedTicket instanceof HTMLElement && ticketToBeLower) { 
-        //column.insertBefore(draggedTicket, ticketToBeLower)  // breaks rendering as column id is now updated
-        console.log(draggedTicket, ticketToBeLower);
-      } else if(draggedTicket instanceof HTMLElement) {
-        //column.appendChild(draggedTicket); // breaks rendering
-      }           
+      const ticketBoxes = Array.from(column.children).filter(
+        (el): el is HTMLElement => 
+          el instanceof HTMLElement && el.classList.contains('box') && el !== draggedTicket
+      );
+
+      const mouseY = e.clientY;
+
+      for (const box of ticketBoxes) {
+        const rect = box.getBoundingClientRect();
+        const boxMidY = rect.top + rect.height / 2;
+
+        if (mouseY < boxMidY) {
+          insertBeforeBox = box;
+          break;
+        }
+      }
     };
   };
 

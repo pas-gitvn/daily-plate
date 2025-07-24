@@ -35,6 +35,7 @@ const Ticket = (props: Props) => {
       draggable={true}
       onDragStart={props.onDragStart(props.id)}
       onDragEnd={props.onDragEnd}
+      data-id ={props.id}
     >
       <span className={`icon ${styles.edit}`} onClick={handleEdit}>
         <FontAwesomeIcon icon={faEdit} />

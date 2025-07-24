@@ -1,3 +1,7 @@
+:root {
+  --dark-mode-text-color: #e2e2e2;
+}
+
 .anchor-type {
   cursor: pointer;
 }
@@ -61,20 +65,20 @@ blockquote {
 
 .dark-mode {
   background-color: #1f1f1f;
-  color: #efefef;
+  color: var(--dark-mode-text-color);
 
   strong {
-    color: #efefef;
+    color: var(--dark-mode-text-color);
   }
 
   .box {
     background-color: rgba(31, 31, 31, 0.95);
-    color: #efefef;
+    color: var(--dark-mode-text-color);
   }
 
   .button.is-light {
     background: #333;
-    color: #efefef;
+    color: var(--dark-mode-text-color);
   }
 
   .current-time {
@@ -83,13 +87,13 @@ blockquote {
 
   input,
   textarea {
-    color: #efefef;
+    color: var(--dark-mode-text-color);
     background-color: #333;
     border-color: #000;
   }
 
   .fa-pen-to-square {
-    color: #efefef;
+    color: var(--dark-mode-text-color);
     &:hover {
       color: #afafaf;
     }
@@ -99,7 +103,7 @@ blockquote {
   .plate__header .subtitle,
   .modal-card-title,
   .modal-card-body label {
-    color: #efefef;
+    color: #f2f2f2;
   }
 
   .modal-card-head,
